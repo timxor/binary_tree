@@ -1,0 +1,19 @@
+{
+  "NonEmpty": {
+    "data": "Federal",
+    "left_sub_tree": "Empty",
+    "right_sub_tree": {
+      "NonEmpty": {
+        "data": "State",
+        "left_sub_tree": "Empty",
+        "right_sub_tree": {
+          "NonEmpty": {
+            "data": "city",
+            "left_sub_tree": "Empty",
+            "right_sub_tree": "Empty"
+          }
+        }
+      }
+    }
+  }
+}
