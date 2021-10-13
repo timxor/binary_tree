@@ -18,16 +18,15 @@
     ------------------------------------------------------------------------------------
 */
 
-// #[macro_use]
+#[macro_use]
+extern crate serde_derive;
+extern crate serde;
 extern crate serde_json;
-
-// use serde_json::Value;
-use serde::{Serialize, Deserialize};
-// use std::io::prelude::*;
 use std::fs;
+
+// use std::error::Error;
 // use std::fs::File;
-// use std::io::Read;
-// use std::io::Write;
+// use std::path::Path;
 
 /* BinaryTree enum */
 #[derive(Serialize, Deserialize)]
@@ -88,6 +87,12 @@ pub fn serialize() -> std::io::Result<()> {
 
     // searialize binary_tree and then write as JSON to file
     let serialized: String = serde_json::to_string_pretty(&binary_tree)?;
+    println!("");
+    println!("");
+    println!("serialized binary_tree = {:?}", serialized);
+    println!("");
+    println!("");
+
     fs::write("binary_tree_serialized.json", &serialized).expect("Unable to write file");
     Ok(())
 }
@@ -106,31 +111,42 @@ fn main() {
     let file_path = "./binary_tree_serialized.json";
     let data = fs::read_to_string(file_path).expect("Unable to read the file binary_tree_serialized.json");
     let deserialized: serde_json::Value = serde_json::from_str(&data).expect("Unable to parse");
-    let bt: BinaryTree = serde_json::from_str()
-    println!("deserialized = {:?}", deserialized);
-
-    //  re-construct binary_tree struct from deserialized
-    //  let mut binary_tree = BinaryTree::Empty;
-
-
-    // binary_tree.add(deserialized)
-    // add some mock data
-    // binary_tree.add("Federal");
-    // binary_tree.add("State");
-    // binary_tree.add("city");
-
-
+    println!("deserialized binary_tree = {:?}", deserialized);
+    println!("");
+    println!("");
 }
 
-// rust tests
+/*
+    TODO: Finish construction fucntion
+
+    fn read_binary_tree_from_file<P: AsRef<Path>>(path: P) -> Result<BinaryTree<T>, Box<Error>> {
+        // Open the file in read-only mode.
+        let file = File::open(path)?;
+
+        // Read the JSON contents of the file as an instance of `BinaryTree`.
+        let re_constructed_binary_tree = serde_json::from_reader(file)?;
+
+        // Return the `BinaryTree`.
+        Ok(re_constructed_binary_tree)
+    }
+*/
+
+/*
+    rust tests
+
+    TODO: Write tests for the following cases
+        1. empty Input
+        2. null input
+        3. valid binary tree
+*/
+
 
 #[cfg(test)]
 
-mod test_one {
-
+mod test_setup {
     #[test]
     #[should_panic]
-    fn test_01() {
+    fn test_case_01() {
         assert!(1 == 1);
         panic!("panic");
     }
