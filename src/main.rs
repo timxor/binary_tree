@@ -18,16 +18,16 @@
     ------------------------------------------------------------------------------------
 */
 
-#[macro_use]
+// #[macro_use]
 extern crate serde_json;
 
-use serde_json::Value;
+// use serde_json::Value;
 use serde::{Serialize, Deserialize};
-use std::io::prelude::*;
+// use std::io::prelude::*;
 use std::fs;
-use std::fs::File;
-use std::io::Read;
-use std::io::Write;
+// use std::fs::File;
+// use std::io::Read;
+// use std::io::Write;
 
 /* BinaryTree enum */
 #[derive(Serialize, Deserialize)]
@@ -99,20 +99,28 @@ pub fn serialize() -> std::io::Result<()> {
 fn main() {
 
     // Builds a BinaryTree struct in memory and then searializes it to disk
-    serialize();
+    serialize().map_err(|err| println!("{:?}", err)).ok();
 
     // Deserialize from disk.
     // Reads file binary_tree_serialized.json and re-constructs in memory.
     let file_path = "./binary_tree_serialized.json";
     let data = fs::read_to_string(file_path).expect("Unable to read the file binary_tree_serialized.json");
-    let res: serde_json::Value = serde_json::from_str(&data).expect("Unable to parse");
-    //println!("{}", res)
+    let deserialized: serde_json::Value = serde_json::from_str(&data).expect("Unable to parse");
+    let bt: BinaryTree = serde_json::from_str()
+    println!("deserialized = {:?}", deserialized);
+
+    //  re-construct binary_tree struct from deserialized
+    //  let mut binary_tree = BinaryTree::Empty;
+
+
+    // binary_tree.add(deserialized)
+    // add some mock data
+    // binary_tree.add("Federal");
+    // binary_tree.add("State");
+    // binary_tree.add("city");
+
+
 }
-
-
-
-
-
 
 // rust tests
 
